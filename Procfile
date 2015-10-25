@@ -1,1 +1,1 @@
-web: gunicorn beamit.controllers.signup:app --log-file=-
+web: gunicorn beamit.app:app --preload --log-level=DEBUG --log-file=-
