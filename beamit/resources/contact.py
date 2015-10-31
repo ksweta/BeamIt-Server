@@ -5,9 +5,9 @@ class Contact(Resource):
 
     MEDIA_TYPE = 'application/vnd.beamit.contact+json'
 
-    def __init__(self, user_id, contact_id, name, phone, email, company, linkedin_url):
-        self.user_id = user_id
-        self.contact_id = contact_id
+    def __init__(self, id, owner_id, name, phone, email, company, linkedin_url):
+        self.id = id
+        self.owner_id = owner_id
         self.name = name
         self.phone = phone
         self.email = email
@@ -15,10 +15,10 @@ class Contact(Resource):
         self.linkedin_url = linkedin_url
 
     def __repr__(self):
-        return "<Contact user_id: {}, contact_id: {}, name: {}, phone: {}, email: {}, "\
+        return "<Contact id: {}, owner_id: {}, name: {}, phone: {}, email: {}, "\
             "company: {}, linkedin_url: {}>".format(
-                self.user_id,
-                self.contact_id,
+                self.id,
+                self.owner_id,
                 self.name,
                 self.phone,
                 self.email,
@@ -28,8 +28,8 @@ class Contact(Resource):
 
     def to_dict(self):
         return dict(
-            user_id=self.user_id,
-            contact_id=self.contact_id,
+            id=self.id,
+            owner_id=self.owner_id,
             name=self.name,
             phone=self.phone,
             email=self.email,
@@ -40,8 +40,8 @@ class Contact(Resource):
     @classmethod
     def from_dict(cls, dct):
         return cls(
-            user_id=dct.get("user_id"),
-            contact_id=dct.get("contact_id"),
+            id=dct.get("id"),
+            owner_id=dct.get("owner_id"),
             name=dct.get("name"),
             phone=dct.get("phone"),
             email=dct.get("email"),
