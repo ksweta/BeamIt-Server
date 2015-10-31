@@ -1,7 +1,6 @@
 from os import environ
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from beamit.config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_ECHO
 
 app = Flask(__name__.split('.')[0])
 app.debug = True
@@ -9,9 +8,10 @@ app.debug = True
 if environ.get('DATABASE_URL'):
     app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
 else:
+    from beamit.config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_ECHO
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+    app.config['SQLALCHEMY_ECHO'] = SQLALCHEMY_ECHO
 
-app.config['SQLALCHEMY_ECHO'] = SQLALCHEMY_ECHO
 db = SQLAlchemy(app)
 
 from beamit.controllers.contact import create_contact_routes
