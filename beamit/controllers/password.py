@@ -22,12 +22,12 @@ def create_password_routes(app):
             raise NotFound(
                 "User not found for email ({})".format(pswd_change_request_resource.email),
             )
-        if pswd_change_request_resource.password != user.password:
+        if not user.check_password(pswd_change_request_resource.password):
             raise Unauthorized(
                 "unauthorized user access for email({})".format(pswd_change_request_resource.email),
             )
         try:
-            user.password = pswd_change_request_resource.new_password
+            user.set_password(pswd_change_request_resource.new_password)
             db.session.commit()
             pswd_change = PasswordChangeResponse(user.id)
             return dumps(pswd_change.to_dict()), codes.ok
