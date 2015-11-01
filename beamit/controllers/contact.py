@@ -53,4 +53,4 @@ def create_contact_routes(app):
         contact = Contact.query.get_or_404(contact_id)
         db.session.delete(contact)
         db.session.commit()
-        return "", codes.ok
+        return "", codes.no_content

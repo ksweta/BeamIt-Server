@@ -10,13 +10,22 @@ def create_photo_routes(app):
 
     @app.route('/api/photo')
     def get_photo():
+        """
+        This is just a test method api. It will be removed in future.
+        """
         try:
             app.logger.info("Get logger")
-            result = send_file('./controllers/sfsu.jpg', mimetype='image/jpg')
+            result = send_file('./resources/static/sfsu.jpg', mimetype='image/jpg')
             return result, codes.ok
         except Exception as error:
             app.logger.exception(error)
             raise error
+
+    @app.route('/api/photo/user/<int:user_id>', methods=["GET"])
+    def get_user_photo(user_id):
+        app.logger.info("get_user_photo=> user_id: {}".format(user_id))
+        user = User.query.get_or_404(user_id)
+        return Response(user.photo, mimetype='image/png')
 
     @app.route('/api/photo/user/<int:user_id>', methods=["POST"])
     def post_user_photo(user_id):
@@ -32,13 +41,7 @@ def create_photo_routes(app):
             db.session.rollback()
             raise
         db.session.commit()
-        return "{}: {}".format(user_id, request.files['photo'].filename), codes.ok
-
-    @app.route('/api/photo/user/<int:user_id>', methods=["GET"])
-    def get_user_photo(user_id):
-        app.logger.info("get_user_photo=> user_id: {}".format(user_id))
-        user = User.query.get_or_404(user_id)
-        return Response(user.photo, mimetype='image/png')
+        return "", codes.no_content
 
     @app.route('/api/photo/contact/<int:contact_id>', methods=["GET"])
     def get_contact_photo(contact_id):
@@ -65,4 +68,4 @@ def create_photo_routes(app):
             raise
 
         db.session.commit()
-        return "{}: {}".format(contact_id, request.files['photo'].filename), codes.ok
+        return "", codes.ok

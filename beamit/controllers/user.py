@@ -49,7 +49,7 @@ def create_user_routes(app):
         try:
             db.session.delete(user)
             db.session.commit()
-            return "", codes.ok
+            return "", codes.no_content
         except Exception as e:
             app.logger.exception(e)
             db.session.rollback()
