@@ -27,7 +27,7 @@ def create_signin_routes(app):
                 "User not found for email ({})".format(signin_request_resource.email),
             )
 
-        if signin_request_resource.password != user.password:
+        if not user.check_password(signin_request_resource.password):
             raise Unauthorized(
                 "unauthorized user access for email({})".format(signin_request_resource.email),
             )
