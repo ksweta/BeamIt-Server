@@ -2,7 +2,7 @@ from flask import request, Response, send_file
 from requests import codes
 
 from beamit.app import db
-from beamit.model.profile import Profile
+from beamit.model.user import User
 from beamit.model.contact import Contact
 
 
@@ -24,9 +24,9 @@ def create_photo_routes(app):
             user_id,
             request.files['photo'].filename,
         ))
-        profile = Profile.query.get_or_404(user_id)
+        user = User.query.get_or_404(user_id)
         try:
-            profile.photo = request.files['photo'].read()
+            user.photo = request.files['photo'].read()
         except Exception as e:
             app.logger.exception(e)
             db.session.rollback()
@@ -35,10 +35,10 @@ def create_photo_routes(app):
         return "{}: {}".format(user_id, request.files['photo'].filename), codes.ok
 
     @app.route('/api/photo/user/<int:user_id>', methods=["GET"])
-    def get_profile_photo(user_id):
-        app.logger.info("get_profile_photo=> user_id: {}".format(user_id))
-        profile = Profile.query.get_or_404(user_id)
-        return Response(profile.photo, mimetype='image/png')
+    def get_user_photo(user_id):
+        app.logger.info("get_user_photo=> user_id: {}".format(user_id))
+        user = User.query.get_or_404(user_id)
+        return Response(user.photo, mimetype='image/png')
 
     @app.route('/api/photo/contact/<int:contact_id>', methods=["GET"])
     def get_contact_photo(contact_id):

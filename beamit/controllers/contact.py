@@ -7,7 +7,7 @@ from requests import codes
 
 from beamit.app import db
 from beamit.model.contact import Contact
-from beamit.model.profile import Profile
+from beamit.model.user import User
 from beamit.resources.contact import Contact as ContactResource
 
 
@@ -21,8 +21,8 @@ def create_contact_routes(app):
         ))
 
         contact_resource = ContactResource.from_dict(loads(request.get_data()))
-        # Make sure profile exists
-        Profile.query.get_or_404(contact_resource.owner_id)
+        # Make sure user exists
+        User.query.get_or_404(contact_resource.owner_id)
         contact_model = Contact.from_contact_resource(contact_resource)
         try:
             db.session.add(contact_model)

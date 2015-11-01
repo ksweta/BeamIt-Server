@@ -1,9 +1,9 @@
 from beamit.resources.base import Resource
 
 
-class Profile(Resource):
+class User(Resource):
 
-    MEDIA_TYPE = 'application/vnd.beamit.profile+json'
+    MEDIA_TYPE = 'application/vnd.beamit.user+json'
 
     def __init__(self, id, email, password, name=None, phone=None, company=None, linkedin_url=None):
         self.id = id
@@ -15,7 +15,7 @@ class Profile(Resource):
         self.linkedin_url = linkedin_url
 
     def __repr__(self):
-        return "<Profile id: {}, email: {}, password: {}, name: {}, phone: {},  company: {}, " \
+        return "<User id: {}, email: {}, password: {}, name: {}, phone: {},  company: {}, " \
             "linkedin_url: {}>".format(
                 self.id,
                 self.email,

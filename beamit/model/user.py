@@ -1,8 +1,8 @@
 from beamit.app import db
-from beamit.resources.profile import Profile as ProfileResource
+from beamit.resources.user import User as UserResource
 
 
-class Profile(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(60), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
@@ -23,7 +23,7 @@ class Profile(db.Model):
         self.photo = photo
 
     def __repr__(self):
-        return "<Profile id: {}, email: {}, password: {}, name: {}, phone: {}, company: {}, " \
+        return "<User id: {}, email: {}, password: {}, name: {}, phone: {}, company: {}, " \
             "linkedin_url: {}, photo_present: {}>".format(
                 self.id,
                 self.email,
@@ -35,8 +35,8 @@ class Profile(db.Model):
                 True if self.photo else False,
             )
 
-    def to_profile_resource(self):
-        return ProfileResource(
+    def to_user_resource(self):
+        return UserResource(
             id=self.id,
             email=self.email,
             password=self.password,
@@ -47,7 +47,7 @@ class Profile(db.Model):
         )
 
     @classmethod
-    def from_profile_resource(cls, resource):
+    def from_user_resource(cls, resource):
         return cls(
             email=resource.email,
             password=resource.password,
