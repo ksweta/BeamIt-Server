@@ -14,11 +14,12 @@ else:
 
 db = SQLAlchemy(app)
 
-from beamit.controllers.contact import create_contact_routes
-from beamit.controllers.signup import create_signup_routes
-from beamit.controllers.signin import create_signin_routes
-from beamit.controllers.photo import create_photo_routes
-from beamit.controllers.profile import create_profile_routes
+from beamit.controllers.contact import create_contact_routes  # noqa
+from beamit.controllers.signup import create_signup_routes  # noqa
+from beamit.controllers.signin import create_signin_routes  # noqa
+from beamit.controllers.password import create_password_routes  # noqa
+from beamit.controllers.photo import create_photo_routes  # noqa
+from beamit.controllers.profile import create_profile_routes  # noqa
 
 
 # These need to be here otherwose db.create_all() will not work
@@ -29,5 +30,6 @@ from beamit.model.contact import Contact  # noqa
 create_contact_routes(app)
 create_signup_routes(app)
 create_signin_routes(app)
+create_password_routes(app)
 create_photo_routes(app)
 create_profile_routes(app)

@@ -7,7 +7,7 @@ class PasswordChangeRequest(Resource):
 
     def __init__(self, email, password, new_password):
         self.email = email
-        self.password = self.password
+        self.password = password
         self.new_password = new_password
 
     def __repr__(self):

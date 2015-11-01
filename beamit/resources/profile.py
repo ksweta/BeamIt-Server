@@ -5,21 +5,23 @@ class Profile(Resource):
 
     MEDIA_TYPE = 'application/vnd.beamit.profile+json'
 
-    def __init__(self, id, name, phone, email, company, linkedin_url):
+    def __init__(self, id, email, password, name=None, phone=None, company=None, linkedin_url=None):
         self.id = id
+        self.email = email
+        self.password = password
         self.name = name
         self.phone = phone
-        self.email = email
         self.company = company
         self.linkedin_url = linkedin_url
 
     def __repr__(self):
-        return "<Profile id: {}, name: {}, phone: {}, email: {}, company: {}, " \
+        return "<Profile id: {}, email: {}, password: {}, name: {}, phone: {},  company: {}, " \
             "linkedin_url: {}>".format(
                 self.id,
+                self.email,
+                self.password,
                 self.name,
                 self.phone,
-                self.email,
                 self.company,
                 self.linkedin_url,
             )
@@ -27,9 +29,10 @@ class Profile(Resource):
     def to_dict(self):
         return dict(
             id=self.id,
+            email=self.email,
+            password=self.password,
             name=self.name,
             phone=self.phone,
-            email=self.email,
             company=self.company,
             linkedin_url=self.linkedin_url,
         )
@@ -38,9 +41,10 @@ class Profile(Resource):
     def from_dict(cls, dct):
         return cls(
             id=dct.get("id"),
+            email=dct.get("email"),
+            password=dct.get("password"),
             name=dct.get("name"),
             phone=dct.get("phone"),
-            email=dct.get("email"),
             company=dct.get("company"),
             linkedin_url=dct.get("linkedin_url"),
         )
