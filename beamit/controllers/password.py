@@ -24,7 +24,9 @@ def create_password_routes(app):
             )
         if not user.check_password(pswd_change_request_resource.password):
             raise Unauthorized(
-                "unauthorized user access for email({})".format(pswd_change_request_resource.email),
+                "unauthorized user access for email ({})".format(
+                    pswd_change_request_resource.email,
+                )
             )
         try:
             user.set_password(pswd_change_request_resource.new_password)
