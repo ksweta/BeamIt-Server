@@ -5,21 +5,19 @@ class User(Resource):
 
     MEDIA_TYPE = 'application/vnd.beamit.user+json'
 
-    def __init__(self, id, email, password, name=None, phone=None, company=None, linkedin_url=None):
+    def __init__(self, id, email, name=None, phone=None, company=None, linkedin_url=None):
         self.id = id
         self.email = email
-        self.password = password
         self.name = name
         self.phone = phone
         self.company = company
         self.linkedin_url = linkedin_url
 
     def __repr__(self):
-        return "<User id: {}, email: {}, password: {}, name: {}, phone: {},  company: {}, " \
+        return "<User id: {}, email: {}, name: {}, phone: {},  company: {}, " \
             "linkedin_url: {}>".format(
                 self.id,
                 self.email,
-                self.password,
                 self.name,
                 self.phone,
                 self.company,
@@ -30,7 +28,6 @@ class User(Resource):
         return dict(
             id=self.id,
             email=self.email,
-            password=self.password,
             name=self.name,
             phone=self.phone,
             company=self.company,
@@ -42,7 +39,6 @@ class User(Resource):
         return cls(
             id=dct.get("id"),
             email=dct.get("email"),
-            password=dct.get("password"),
             name=dct.get("name"),
             phone=dct.get("phone"),
             company=dct.get("company"),

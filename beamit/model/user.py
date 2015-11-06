@@ -57,20 +57,8 @@ class User(db.Model):
         return UserResource(
             id=self.id,
             email=self.email,
-            password=self.password,
             name=self.name,
             phone=self.phone,
             company=self.company,
             linkedin_url=self.linkedin_url,
-        )
-
-    @classmethod
-    def from_user_resource(cls, resource):
-        return cls(
-            email=resource.email,
-            password=resource.password,
-            name=resource.name,
-            phone=resource.phone,
-            company=resource.company,
-            linkedin_url=resource.linkedin_url,
         )
