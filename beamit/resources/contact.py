@@ -1,4 +1,5 @@
-from beamit.resources.base import Resource, ResourceList
+
+from beamit.resources.base import Resource, PaginatedResourceList
 
 
 class Contact(Resource):
@@ -50,27 +51,16 @@ class Contact(Resource):
         )
 
 
-class ContactList(ResourceList):
-
+class ContactList(PaginatedResourceList):
+    """
+    Contact list for a owner
+    """
     MEDIA_TYPE = 'application/vnd.beamit.contact.list+json'
 
-    def __init__(self, user_id, members):
-        self.user_id = user_id
-        self.members = members
-
-    @property
-    def resources(self):
-        return self.members
-
-    def to_dict(self):
-        return dict(
-            user_id=self.user_id,
-            members=[member.to_dict() for member in self.members],
-        )
+    @classmethod
+    def items_name(cls):
+        return "contacts"
 
     @classmethod
-    def from_dict(cls, dct):
-        return cls(
-            user_id=dct["user_id"],
-            members=[Contact.from_dict(member) for member in dct["members"]],
-        )
+    def items_class(cls):
+        return Contact

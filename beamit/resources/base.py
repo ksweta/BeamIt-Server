@@ -52,3 +52,43 @@ class ResourceList(Resource):
 
     def append(self, resource):
         self.resources.append(resource)
+
+
+class PaginatedResourceList(ResourceList):
+
+    def __init__(self, items=None, offset=None, limit=None, total_count=None):
+        self.items = items or []
+        self.offset = offset
+        self.limit = limit
+        self.total_count = total_count
+
+    @property
+    def resources(self):
+        return self.items
+
+    @classmethod
+    def items_name(cls):
+        raise NotImplementedError("`items_name` is not implemented")
+
+    @classmethod
+    def items_class(cls):
+        raise NotImplementedError("`items_class` is not implemented")
+
+    def to_dict(self):
+        return {
+            self.items_name(): [
+                entry.to_dict() for entry in self
+            ],
+            "offset": self.offset,
+            "limit": self.limit,
+            "totalCount": self.total_count,
+        }
+
+    @classmethod
+    def from_dict(cls, dct):
+        return cls(
+            [cls.items_class().from_dict(model) for model in dct[cls.items_name()]],
+            offset=dct["offset"],
+            limit=dct["limit"],
+            total_count=dct["totalCount"],
+        )
