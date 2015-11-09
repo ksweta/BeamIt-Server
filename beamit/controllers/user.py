@@ -7,6 +7,7 @@ from requests import codes
 
 from beamit.app import db
 from beamit.model.user import User
+from beamit.model.contact import Contact
 from beamit.resources.user import User as UserResource
 
 
@@ -68,7 +69,10 @@ def create_user_routes(app):
             user_id,
         ))
         user = User.query.get_or_404(user_id)
+        contacts = Contact.query.filter_by(owner_id=user.id)
         try:
+            for contact in contacts:
+                db.session.delete(contact)
             db.session.delete(user)
             db.session.commit()
             return "", codes.no_content
