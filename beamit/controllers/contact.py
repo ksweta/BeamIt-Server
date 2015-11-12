@@ -40,8 +40,8 @@ def create_contact_routes(app):
             db.session.commit()
             contact_resource = contact_model.to_contact_resource()
             return dumps(contact_resource.to_dict()), codes.created
-        except Exception as e:
-            app.logger.exception(e)
+        except Exception as error:
+            app.logger.exception(error)
             db.session.rollback()
             raise
 

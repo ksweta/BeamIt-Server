@@ -19,6 +19,7 @@ from beamit.controllers.signup import create_signup_routes  # noqa
 from beamit.controllers.signin import create_signin_routes  # noqa
 from beamit.controllers.password import create_password_routes  # noqa
 from beamit.controllers.photo import create_photo_routes  # noqa
+from beamit.controllers.share import create_share_routes  # noqa
 from beamit.controllers.user import create_user_routes  # noqa
 
 
@@ -26,10 +27,12 @@ from beamit.controllers.user import create_user_routes  # noqa
 from beamit.model.user import User  # noqa
 from beamit.model.contact import Contact  # noqa
 
+
 # Setup the routes
 create_contact_routes(app)
 create_signup_routes(app)
 create_signin_routes(app)
 create_password_routes(app)
 create_photo_routes(app)
+create_share_routes(app)
 create_user_routes(app)
