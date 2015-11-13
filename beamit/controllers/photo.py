@@ -45,7 +45,7 @@ def create_photo_routes(app):
 
     @app.route('/api/photo/contact/<int:contact_id>', methods=["GET"])
     def get_contact_photo(contact_id):
-        app.logger.info("content-type: {}, user_id: {}".format(
+        app.logger.info("content-type: {}, contact_id: {}".format(
             request.headers.get('content-type'),
             contact_id,
         ))
