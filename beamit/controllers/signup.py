@@ -13,10 +13,6 @@ from beamit.model.user import User
 
 def create_signup_routes(app):
 
-    @app.route('/')
-    def root():
-        return 'Hello from BeamIt!!'
-
     @app.route("/api/signup", methods=["POST"])
     def signup():
         app.logger.info("content-type: {}, data: {}".format(

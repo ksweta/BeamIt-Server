@@ -1,5 +1,5 @@
 """
-Sign in controller
+Signin controller
 """
 from flask import request
 from json import dumps, loads
